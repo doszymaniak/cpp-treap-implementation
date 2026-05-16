@@ -22,6 +22,7 @@ class Treap {
         static Node *find_maximum(Node *n);
         static Node *remove_minimum(Node *n);
         static Node *remove_maximum(Node *n);
+        static Node *copy(const Node *n);
     };
     Node *root;
 public:

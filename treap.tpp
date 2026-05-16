@@ -130,4 +130,18 @@ Treap<T>::Treap(std::initializer_list<T> l) : root(nullptr)
     for (const T &el: l) root = Node::insert(el, root);
 }
 
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::copy(const Treap<T>::Node *n)
+{
+    if (n == nullptr) return nullptr;
+    Node *new_node = new Node(n->key);
+    new_node->priority = n->priority;
+    new_node->left = copy(n->left);
+    new_node->right = copy(n->right);
+    return new_node;
+}
+
+template <typename T>
+Treap<T>::Treap(const Treap<T> &other) : root(Node::copy(other.root)) {}
+
 }
