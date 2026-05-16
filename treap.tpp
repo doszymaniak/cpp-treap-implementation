@@ -24,4 +24,21 @@ std::pair<typename Treap<T>::Node *, typename Treap<T>::Node *> Treap<T>::Node::
     return {t, right_split.second};
 }
 
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::merge(Treap<T>::Node *l, Treap<T>::Node *r)
+{
+    if (l == nullptr) return r;
+    if (r == nullptr) return l;
+    // Invariants:
+    // - keys(left) < keys(right)
+    // - node with higher priority becomes root 
+    if (l->priority > r->priority)
+    {
+        l->right = merge(l->right, r);
+        return l;
+    }
+    r->left = merge(l, r->left);
+    return r;
+}
+
 }
