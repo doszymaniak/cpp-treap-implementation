@@ -150,4 +150,20 @@ Treap<T>::Treap(Treap<T> &&other) : root(other.root)
     other.root = nullptr;
 }
 
+template <typename T>
+void Treap<T>::Node::destroy(Treap<T>::Node *n)
+{
+    if (n == nullptr) return;
+    destroy(n->left);
+    destroy(n->right);
+    delete n;
+}
+
+template <typename T>
+Treap<T>::~Treap()
+{
+    Node::destroy(root);
+    root = nullptr;
+}
+
 }
