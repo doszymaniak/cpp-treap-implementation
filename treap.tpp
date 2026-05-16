@@ -166,4 +166,24 @@ Treap<T>::~Treap()
     root = nullptr;
 }
 
+template <typename T>
+Treap<T> &Treap<T>::operator=(const Treap &other)
+{
+    if (this == &other) return *this;
+    Node *new_root = Node::copy(other.root);
+    Node::destroy(root);
+    root = new_root;
+    return *this;
+}
+
+template <typename T>
+Treap<T> &Treap<T>::operator=(Treap &&other)
+{
+    if (this == &other) return *this;
+    Node::destroy(root);
+    root = other.root;
+    other.root = nullptr;
+    return *this;
+}
+
 }
