@@ -41,4 +41,12 @@ Treap<T>::Node *Treap<T>::Node::merge(Treap<T>::Node *l, Treap<T>::Node *r)
     return r;
 }
 
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::insert(const T &el, Treap<T>::Node *n)
+{
+    Node *new_node = new Node(el);
+    std::pair<Node *, Node *> parts = split(n, el);
+    return merge(merge(parts.first, new_node), parts.second);
+}
+
 }
