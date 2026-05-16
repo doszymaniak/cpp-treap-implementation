@@ -93,4 +93,32 @@ Treap<T>::Node *Treap<T>::Node::find_maximum(Treap<T>::Node *n)
     return find_maximum(n->right);
 }
 
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::remove_minimum(Treap<T>::Node *n)
+{
+    if (n == nullptr) return n;
+    if (n->left == nullptr)
+    {
+        Node *r = n->right;
+        delete n;
+        return r;
+    }
+    n->left = remove_minimum(n->left);
+    return n;
+}
+
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::remove_maximum(Treap<T>::Node *n)
+{
+    if (n == nullptr) return n;
+    if (n->right == nullptr)
+    {
+        Node *l = n->left;
+        delete n;
+        return l;
+    }
+    n->right = remove_maximum(n->right);
+    return n;
+}
+
 }
