@@ -232,4 +232,34 @@ void Treap<T>::remove_maximum()
     root = Node::remove_maximum(root);
 }
 
+template <typename T>
+void Treap<T>::Node::inorder(std::vector<T> &vec) const
+{
+    if (left) left->inorder(vec);
+    vec.push_back(key);
+    if (right) right->inorder(vec);
+}
+
+template <typename T>
+std::vector<T> Treap<T>::to_vector() const
+{
+    std::vector<T> vec;
+    if (root) root->inorder(vec);
+    return vec;
+}
+
+template <typename U>
+std::ostream &operator<<(std::ostream &out, const Treap<U> &t)
+{
+    std::vector<U> list = t.to_vector();
+    out << "[";
+    for (size_t i = 0; i < list.size(); i++)
+    {
+        out << list[i];
+        if (i + 1 != list.size()) out << ", ";
+    }
+    out << "]";
+    return out;
+}
+
 }

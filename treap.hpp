@@ -2,6 +2,8 @@
 #define TREAP_HPP
 
 #include <utility>
+#include <ostream>
+#include <vector>
 
 namespace data_structures {
 
@@ -24,6 +26,7 @@ class Treap {
         static Node *remove_maximum(Node *n);
         static Node *copy(const Node *n);
         static void destroy(Node *n);
+        void inorder(std::vector<T> &vec) const;
     };
     Node *root;
 public:
@@ -41,7 +44,11 @@ public:
     const T &find_maximum() const;
     void remove_minimum();
     void remove_maximum();
+    std::vector<T> to_vector() const;
 };
+
+template <typename U>
+std::ostream &operator<<(std::ostream &out, const Treap<U> &t);
 
 }
 
