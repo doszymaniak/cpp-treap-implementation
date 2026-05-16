@@ -144,4 +144,10 @@ Treap<T>::Node *Treap<T>::Node::copy(const Treap<T>::Node *n)
 template <typename T>
 Treap<T>::Treap(const Treap<T> &other) : root(Node::copy(other.root)) {}
 
+template <typename T>
+Treap<T>::Treap(Treap<T> &&other) : root(other.root)
+{
+    other.root = nullptr;
+}
+
 }
