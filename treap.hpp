@@ -12,6 +12,7 @@ class Treap {
         int priority;
         Node *left, *right;
         Node(const T &key);
+    public:
         static std::pair<Node *, Node *> split(Node *t, const T &piv);
         static Node *merge(Node *l, Node *r);
         static Node *insert(const T &el, Node *n);

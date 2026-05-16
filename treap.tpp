@@ -121,4 +121,13 @@ Treap<T>::Node *Treap<T>::Node::remove_maximum(Treap<T>::Node *n)
     return n;
 }
 
+template <typename T>
+Treap<T>::Treap() : root(nullptr) {};
+
+template <typename T>
+Treap<T>::Treap(std::initializer_list<T> l) : root(nullptr)
+{
+    for (const T &el: l) root = Node::insert(el, root);
+}
+
 }
