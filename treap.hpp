@@ -27,6 +27,7 @@ class Treap {
         static Node *copy(const Node *n);
         static void destroy(Node *n);
         void inorder(std::vector<T> &vec) const;
+        const T &get_key() const { return key; }
     };
     Node *root;
 public:
