@@ -186,4 +186,50 @@ Treap<T> &Treap<T>::operator=(Treap &&other)
     return *this;
 }
 
+template <typename T>
+void Treap<T>::insert(const T &el)
+{
+    root = Node::insert(el, root);
+}
+
+template <typename T>
+void Treap<T>::remove(const T &el)
+{
+    root = Node::remove(el, root);
+}
+
+template <typename T>
+bool Treap<T>::find(const T &el) const
+{
+    return Node::find(el, root) != nullptr;
+}
+
+template <typename T>
+const T &Treap<T>::find_minimum() const
+{
+    Node *minim = Node::find_minimum(root);
+    if (minim == nullptr) throw std::invalid_argument("Empty tree!");
+    return minim->key;
+}
+
+template <typename T>
+const T &Treap<T>::find_maximum() const
+{
+    Node *maxi = Node::find_maximum(root);
+    if (maxi == nullptr) throw std::invalid_argument("Empty tree!");
+    return maxi->key;
+}
+
+template <typename T>
+void Treap<T>::remove_minimum()
+{
+    root = Node::remove_minimum(root);
+}
+
+template <typename T>
+void Treap<T>::remove_maximum()
+{
+    root = Node::remove_maximum(root);
+}
+
 }

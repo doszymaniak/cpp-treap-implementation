@@ -37,8 +37,8 @@ public:
     void insert(const T &el);
     void remove(const T &k);
     bool find(const T &el) const;
-    T find_minimum() const;
-    T find_maximum() const;
+    const T &find_minimum() const;
+    const T &find_maximum() const;
     void remove_minimum();
     void remove_maximum();
 };
