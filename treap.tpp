@@ -49,4 +49,23 @@ Treap<T>::Node *Treap<T>::Node::insert(const T &el, Treap<T>::Node *n)
     return merge(merge(parts.first, new_node), parts.second);
 }
 
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::remove(const T &el, Treap<T>::Node *n)
+{
+    if (n == nullptr) return n;
+    if (n->key > el) 
+    {
+        n->left = remove(el, n->left);
+        return n;
+    }
+    else if (n->key < el) 
+    {
+        n->right = remove(el, n->right);
+        return n;
+    }
+    Node *merged = merge(n->left, n->right);
+    delete n;
+    return merged;
+}
+
 }
