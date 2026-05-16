@@ -16,7 +16,7 @@ class Treap {
         static Node *merge(Node *l, Node *r);
         static Node *insert(const T &el, Node *n);
         static Node *remove(const T &k, Node *n);
-        static bool find(const T &el, const Node *n);
+        static Node *find(const T &el, Node *n);
         static Node *find_minimum(Node *n);
         static Node *find_maximum(Node *n);
         static Node *remove_minimum(Node *n);

@@ -68,4 +68,29 @@ Treap<T>::Node *Treap<T>::Node::remove(const T &el, Treap<T>::Node *n)
     return merged;
 }
 
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::find(const T &el, Treap<T>::Node *n)
+{
+    if (n == nullptr) return n;
+    if (n->key > el) return find(el, n->left);
+    else if (n->key < el) return find(el, n->right);
+    return n;
+}
+
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::find_minimum(Treap<T>::Node *n)
+{
+    if (n == nullptr) return n;
+    if (n->left == nullptr) return n;
+    return find_minimum(n->left);
+}
+
+template <typename T>
+Treap<T>::Node *Treap<T>::Node::find_maximum(Treap<T>::Node *n)
+{
+    if (n == nullptr) return n;
+    if (n->right == nullptr) return n;
+    return find_maximum(n->right);
+}
+
 }
