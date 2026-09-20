@@ -1,101 +1,119 @@
 #include "treap.hpp"
 #include <iostream>
+#include <limits>
+#include <string>
+#include <utility>
 
-using namespace std;
-using namespace ds;
+using ds::Treap;
 
 void print_options() {
-  cout << "\n1. Insert element\n";
-  cout << "2. Remove element\n";
-  cout << "3. Find element\n";
-  cout << "4. Find minimum\n";
-  cout << "5. Find maximum\n";
-  cout << "6. Remove minimum\n";
-  cout << "7. Remove maximum\n";
-  cout << "8. Print (inorder)\n";
-  cout << "9. Test copy constructor\n";
-  cout << "10. Test move constructor\n";
-  cout << "11. Exit\n\n";
-  cout << "CHOOSE: ";
+  std::cout << "\n1. Insert element\n";
+  std::cout << "2. Remove element\n";
+  std::cout << "3. Find element\n";
+  std::cout << "4. Find minimum\n";
+  std::cout << "5. Find maximum\n";
+  std::cout << "6. Remove minimum\n";
+  std::cout << "7. Remove maximum\n";
+  std::cout << "8. Print (inorder)\n";
+  std::cout << "9. Test copy constructor\n";
+  std::cout << "10. Test move constructor\n";
+  std::cout << "11. Exit\n\n";
+  std::cout << "CHOOSE: ";
+}
+
+bool read_value(int &value) {
+  if (std::cin >> value)
+    return true;
+
+  if (std::cin.eof())
+    return false;
+
+  std::cin.clear();
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  std::cout << "INVALID VALUE. TRY AGAIN.\n";
+  return false;
 }
 
 int main() {
-  cout << "-- WELCOME TO A TREAP VISUALIZER! --\n";
-  Treap<int> *t = new Treap<int>();
+  std::cout << "-- WELCOME TO THE TREAP DEMO --\n";
+  Treap<int> treap;
 
-  while (1) {
+  while (true) {
     print_options();
-    string option;
-    cin >> option;
+    std::string option;
+    if (!(std::cin >> option))
+      break;
 
     if (option == "1") {
       int val;
-      cout << "ENTER VALUE: ";
-      cin >> val;
-      t->insert(val);
+      std::cout << "ENTER VALUE: ";
+      if (read_value(val))
+        treap.insert(val);
     }
 
     else if (option == "2") {
       int val;
-      cout << "ENTER VALUE: ";
-      cin >> val;
-      t->remove(val);
+      std::cout << "ENTER VALUE: ";
+      if (read_value(val))
+        treap.remove(val);
     }
 
     else if (option == "3") {
       int val;
-      cout << "ENTER VALUE: ";
-      cin >> val;
-      cout << "ELEMENT " << val;
-      if (t->find(val))
-        cout << " FOUND!\n";
-      else
-        cout << " NOT FOUND!\n";
+      std::cout << "ENTER VALUE: ";
+      if (read_value(val)) {
+        std::cout << "ELEMENT " << val;
+        if (treap.find(val))
+          std::cout << " FOUND!\n";
+        else
+          std::cout << " NOT FOUND!\n";
+      }
     }
 
     else if (option == "4") {
       try {
-        cout << t->find_minimum() << '\n';
-      } catch (...) {
-        cout << "EMPTY TREE!\n";
+        std::cout << treap.find_minimum() << '\n';
+      } catch (const std::invalid_argument &) {
+        std::cout << "EMPTY TREE!\n";
       }
     }
 
     else if (option == "5") {
       try {
-        cout << t->find_maximum() << '\n';
-      } catch (...) {
-        cout << "EMPTY TREE!\n";
+        std::cout << treap.find_maximum() << '\n';
+      } catch (const std::invalid_argument &) {
+        std::cout << "EMPTY TREE!\n";
       }
     }
 
     else if (option == "6")
-      t->remove_minimum();
+      treap.remove_minimum();
 
     else if (option == "7")
-      t->remove_maximum();
+      treap.remove_maximum();
 
     else if (option == "8")
-      cout << *t << '\n';
+      std::cout << treap << '\n';
 
     else if (option == "9") {
-      cout << "ORIGINAL: " << *t << '\n';
-      Treap<int> copy_t(*t);
-      cout << "COPY: " << copy_t << '\n';
+      std::cout << "ORIGINAL: " << treap << '\n';
+      Treap<int> copy_t(treap);
+      std::cout << "COPY: " << copy_t << '\n';
     }
 
     else if (option == "10") {
-      cout << "BEFORE MOVE: " << *t << '\n';
-      Treap<int> *moved = new Treap<int>(move(*t));
-      cout << "MOVE CONSTRUCTOR: " << *moved << '\n';
-      cout << "ORIGINAL AFTER MOVE: " << *t << '\n';
-      delete moved;
+      std::cout << "BEFORE MOVE: " << treap << '\n';
+      Treap<int> moved(std::move(treap));
+      std::cout << "MOVE CONSTRUCTOR: " << moved << '\n';
+      std::cout << "ORIGINAL AFTER MOVE: " << treap << '\n';
     }
 
-    else
+    else if (option == "11")
       break;
+
+    else
+      std::cout << "UNKNOWN OPTION. CHOOSE 1-11.\n";
   }
 
-  delete t;
   return 0;
 }
