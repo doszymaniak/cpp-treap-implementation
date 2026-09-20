@@ -1,57 +1,62 @@
 #ifndef TREAP_HPP
 #define TREAP_HPP
 
-#include <utility>
+#include <initializer_list>
 #include <ostream>
+#include <random>
+#include <stdexcept>
+#include <utility>
 #include <vector>
 
 namespace data_structures {
 
-template <typename T>
-class Treap {
-    class Node {
-        T key;
-        int priority;
-        Node *left, *right;
-        Node(const T &key);
-    public:
-        static std::pair<Node *, Node *> split(Node *t, const T &piv);
-        static Node *merge(Node *l, Node *r);
-        static Node *insert(const T &el, Node *n);
-        static Node *remove(const T &k, Node *n);
-        static Node *find(const T &el, Node *n);
-        static Node *find_minimum(Node *n);
-        static Node *find_maximum(Node *n);
-        static Node *remove_minimum(Node *n);
-        static Node *remove_maximum(Node *n);
-        static Node *copy(const Node *n);
-        static void destroy(Node *n);
-        void inorder(std::vector<T> &vec) const;
-        const T &get_key() const { return key; }
-    };
-    Node *root;
+template <typename T> class Treap {
+  class Node {
+    T key;
+    int priority;
+    Node *left, *right;
+    Node(const T &key);
+    static int random_priority();
+
+  public:
+    static std::pair<Node *, Node *> split(Node *t, const T &piv);
+    static Node *merge(Node *l, Node *r);
+    static Node *insert(const T &el, Node *n);
+    static Node *remove(const T &k, Node *n);
+    static Node *find(const T &el, Node *n);
+    static Node *find_minimum(Node *n);
+    static Node *find_maximum(Node *n);
+    static Node *remove_minimum(Node *n);
+    static Node *remove_maximum(Node *n);
+    static Node *copy(const Node *n);
+    static void destroy(Node *n);
+    void inorder(std::vector<T> &vec) const;
+    const T &get_key() const { return key; }
+  };
+  Node *root;
+
 public:
-    Treap();
-    Treap(std::initializer_list<T> init);
-    Treap(const Treap &other);
-    Treap(Treap &&other);
-    ~Treap();
-    Treap &operator=(const Treap &other);
-    Treap &operator=(Treap &&other);
-    void insert(const T &el);
-    void remove(const T &k);
-    bool find(const T &el) const;
-    const T &find_minimum() const;
-    const T &find_maximum() const;
-    void remove_minimum();
-    void remove_maximum();
-    std::vector<T> to_vector() const;
+  Treap();
+  Treap(std::initializer_list<T> init);
+  Treap(const Treap &other);
+  Treap(Treap &&other);
+  ~Treap();
+  Treap &operator=(const Treap &other);
+  Treap &operator=(Treap &&other);
+  void insert(const T &el);
+  void remove(const T &k);
+  bool find(const T &el) const;
+  const T &find_minimum() const;
+  const T &find_maximum() const;
+  void remove_minimum();
+  void remove_maximum();
+  std::vector<T> to_vector() const;
 };
 
 template <typename U>
 std::ostream &operator<<(std::ostream &out, const Treap<U> &t);
 
-}
+} // namespace data_structures
 
 namespace ds = data_structures;
 
