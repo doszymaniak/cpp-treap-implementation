@@ -1,5 +1,6 @@
 # cpp-treap-implementation
-A template-based implementation of a Treap (randomized binary search tree), combining properties of a Heap and a Binary Search Tree. Supports comparable data types. This project focuses on manual memory management and low-level data structure design.
+A template-based implementation of a Treap (randomized binary search tree), combining properties of a Heap and a Binary Search Tree. Supports comparable data types and focuses on manual memory management, recursive tree operations, and low-level data structure design.
+
 ## Features
 - Insert and remove elements
 - Search operations
@@ -11,16 +12,27 @@ A template-based implementation of a Treap (randomized binary search tree), comb
 - Template-based implementation
 - Inorder traversal and vector conversion
 - Simple CLI for testing
+
 ## Data structure overview
 A Treap maintains two invariants which guarantee expected O(log n) time complexity for basic operations:
-- Keys in the left subtree are less than keys in the right subtree
+- Keys are kept in sorted order, so duplicate values can be stored in the tree
 - Node priorities follow a heap property: each node has a higher priority than its children
+
+This gives a randomized BST that behaves like a heap during rotations, making insertion and deletion efficient in practice.
+
 ## How to build
-Use any modern C++ compiler
+Use CMake from the project root:
 ```bash
-g++ -std=c++23 -Wall -Wextra -pedantic -O3 main.cpp -o main
+cmake -S . -B build
+cmake --build build
 ```
-Run the program
+
+Run the interactive demo:
 ```bash
-./main
+./build/treap_demo
+```
+
+Run the tests:
+```bash
+ctest --test-dir build --output-on-failure
 ```
