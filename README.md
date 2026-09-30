@@ -36,3 +36,41 @@ Run the tests:
 ```bash
 ctest --test-dir build --output-on-failure
 ```
+
+## Benchmark results
+All benchmarks were run in Release mode (-O3).  
+Each result is the median of 5 runs.
+
+---
+
+### What I tested
+- Random insert - N random elements inserted  
+- Random find - 2N lookup queries  
+- Sorted insert - increasing keys  
+- Mixed insert/delete - 4N mixed operations  
+
+---
+
+### Results
+| Scenario        | N     | Treap (ms) | std::multiset (ms) |
+|----------------|------:|------------:|--------------------:|
+| Random insert  | 1e3   | 0.184       | 0.062               |
+|                | 1e5   | 43.594      | 22.465              |
+|                | 1e6   | 987.991     | 598.055             |
+| Random find    | 1e3   | 0.055       | 0.048               |
+|                | 1e5   | 26.951      | 28.137              |
+|                | 1e6   | 848.631     | 658.180             |
+| Sorted insert  | 1e3   | 0.075       | 0.050               |
+|                | 1e5   | 10.400      | 14.627              |
+|                | 1e6   | 113.920     | 214.302             |
+| Mixed ops      | 1e3   | 0.325       | 0.162               |
+|                | 1e5   | 63.859      | 37.861              |
+|                | 1e6   | 1170.329    | 840.989             |
+
+---
+
+### Key takeaways
+- Treap is faster on sorted inserts (up to ~2× at large scale)
+- std::multiset performs better on random and mixed workloads
+- Lookup performance is broadly similar across both implementations
+- Differences are driven by constant factors and memory behavior rather than Big-O complexity
